@@ -221,6 +221,10 @@ module RackspaceMonitoringCookbook
             action :add
           end
         else
+          if node['platform'] == 'debian'
+            package 'apt-transport-https'
+          end
+
           apt_repository 'monitoring' do
             uri "https://stable.packages.cloudmonitoring.rackspace.com/#{node['platform']}-#{node['lsb']['release']}-x86_64"
             distribution 'cloudmonitoring'
